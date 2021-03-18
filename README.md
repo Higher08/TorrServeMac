@@ -1,3 +1,3 @@
 # TorrServeMac
-IN PROGRESS
+IN PROGRESS 
  Manage TorrServe on Mac
