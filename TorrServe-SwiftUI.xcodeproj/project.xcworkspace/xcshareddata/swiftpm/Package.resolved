@@ -18,6 +18,15 @@
           "revision": "e43a85dd005f72bbb448ebc6534e1ab0277f72a1",
           "version": null
         }
+      },
+      {
+        "package": "ValidatedPropertyKit",
+        "repositoryURL": "https://github.com/SvenTiigi/ValidatedPropertyKit",
+        "state": {
+          "branch": null,
+          "revision": "1fc8adb98ce016700645ef17161c4583a8200cee",
+          "version": "0.0.5"
+        }
       }
     ]
   },
