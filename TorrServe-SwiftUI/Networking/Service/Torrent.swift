@@ -1,4 +1,6 @@
 // MARK: - TorrentElement
+import SwiftUI
+
 struct TorrentElement: Codable, Hashable, Equatable {
     let title: String?
     let poster: String?

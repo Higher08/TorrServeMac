@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - ReleaseElement
-struct ReleaseElement: Codable {
+struct ReleaseElement: Codable, Hashable {
     let url: String?
     let assetsURL: String?
     let uploadURL: String?
@@ -42,7 +42,7 @@ struct ReleaseElement: Codable {
 }
 
 // MARK: - Asset
-struct Asset: Codable {
+struct Asset: Codable, Hashable {
     let url: String?
     let id: Int?
     let nodeID: String?

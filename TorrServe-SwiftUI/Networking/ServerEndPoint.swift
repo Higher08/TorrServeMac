@@ -6,6 +6,7 @@ public enum ServerApi {
     case echo
     case list
     case addTorrent(magnet: String, title: String, poster: String)
+    case cache(hash: String)
 }
 
 extension ServerApi: EndPointType {
@@ -30,6 +31,8 @@ extension ServerApi: EndPointType {
             return "torrents"
         case .addTorrent:
             return "stream"
+        case .cache:
+            return "cache"
         }
     }
     var httpMethod: HTTPMethod {
@@ -37,6 +40,8 @@ extension ServerApi: EndPointType {
         case .list:
             return .post
         case .addTorrent:
+            return .post
+        case .cache:
             return .post
         default:
             return .get
@@ -57,6 +62,10 @@ extension ServerApi: EndPointType {
                              "poster": poster],
             bodyEncoding: .jsonEncoding,
             urlParameters: nil)
+        case .cache(let hash): return .requestParameters(bodyParameters: ["action": "get",
+                                                                          "hash": hash],
+                                                         bodyEncoding: .jsonEncoding,
+                                                         urlParameters: nil)
         }
     }
     

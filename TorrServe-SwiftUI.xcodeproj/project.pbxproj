@@ -41,6 +41,9 @@
 		66FA2E572618EBBA004478D3 /* AddTorrentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA2E562618EBBA004478D3 /* AddTorrentView.swift */; };
 		66FA2E5B2618EC26004478D3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA2E5A2618EC26004478D3 /* SettingsView.swift */; };
 		66FE2BC3261DBEE300C65F66 /* Arch+Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE2BC2261DBEE300C65F66 /* Arch+Process.swift */; };
+		66FE2BC6261DE98400C65F66 /* CacheModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE2BC5261DE98300C65F66 /* CacheModel.swift */; };
+		66FE2BCD261DEA0E00C65F66 /* CacheView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE2BCC261DEA0E00C65F66 /* CacheView.swift */; };
+		66FE2BD0261DFAC700C65F66 /* NeedDownloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FE2BCF261DFAC700C65F66 /* NeedDownloadView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +81,9 @@
 		66FA2E562618EBBA004478D3 /* AddTorrentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTorrentView.swift; sourceTree = "<group>"; };
 		66FA2E5A2618EC26004478D3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		66FE2BC2261DBEE300C65F66 /* Arch+Process.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Arch+Process.swift"; sourceTree = "<group>"; };
+		66FE2BC5261DE98300C65F66 /* CacheModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheModel.swift; sourceTree = "<group>"; };
+		66FE2BCC261DEA0E00C65F66 /* CacheView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheView.swift; sourceTree = "<group>"; };
+		66FE2BCF261DFAC700C65F66 /* NeedDownloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedDownloadView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +108,10 @@
 				66FA2E4B2618E8DA004478D3 /* SidebarView.swift */,
 				668415D5261ADD8A00E6A74B /* DeleteServer.swift */,
 				66FA2E5A2618EC26004478D3 /* SettingsView.swift */,
+				66FE2BCF261DFAC700C65F66 /* NeedDownloadView.swift */,
 				66D536E5261A1890009CFBD4 /* DownloadLatestView.swift */,
 				66FA2E562618EBBA004478D3 /* AddTorrentView.swift */,
+				66FE2BCC261DEA0E00C65F66 /* CacheView.swift */,
 				66FA2E4E2618EAA4004478D3 /* ServerInfoView.swift */,
 			);
 			path = Views;
@@ -141,6 +149,7 @@
 				669C177625FD0E4A00EE3CC3 /* Torrent.swift */,
 				662E7CE72619E810006C58FD /* EndPointType.swift */,
 				66D536DC2619FE3F009CFBD4 /* ReleaseModel.swift */,
+				66FE2BC5261DE98300C65F66 /* CacheModel.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -277,7 +286,9 @@
 				662E7CF02619E810006C58FD /* ServerEndPoint.swift in Sources */,
 				66FA2E5B2618EC26004478D3 /* SettingsView.swift in Sources */,
 				668415DA261AF35E00E6A74B /* OnView+View.swift in Sources */,
+				66FE2BD0261DFAC700C65F66 /* NeedDownloadView.swift in Sources */,
 				662E7CE82619E810006C58FD /* ParameterEncoding.swift in Sources */,
+				66FE2BC6261DE98400C65F66 /* CacheModel.swift in Sources */,
 				66D536E6261A1890009CFBD4 /* DownloadLatestView.swift in Sources */,
 				66FA2E572618EBBA004478D3 /* AddTorrentView.swift in Sources */,
 				668415D6261ADD8A00E6A74B /* DeleteServer.swift in Sources */,
@@ -296,6 +307,7 @@
 				662E7CFD2619E810006C58FD /* NetworkLogger.swift in Sources */,
 				669C177725FD0E4A00EE3CC3 /* Torrent.swift in Sources */,
 				66FE2BC3261DBEE300C65F66 /* Arch+Process.swift in Sources */,
+				66FE2BCD261DEA0E00C65F66 /* CacheView.swift in Sources */,
 				66FA2E4F2618EAA4004478D3 /* ServerInfoView.swift in Sources */,
 				662E7D042619E968006C58FD /* NetwokHandling+NSURLHTTPResponse.swift in Sources */,
 			);

@@ -13,9 +13,13 @@ struct AllTorrentsView: View {
     @State var error: String?
     @State var loading: Bool = false
     @State var timesCount: Int = 0
+    @State var selectHash: String = ""
+    @State var presentCache: Bool = false
+    
+    @EnvironmentObject var appState: AppState
     var body: some View {
         ZStack {
-            if loading && timesCount < 2 {
+            if loading {
                 ProgressView()
             } else if error != nil {
                 VStack {
@@ -27,15 +31,40 @@ struct AllTorrentsView: View {
             } else {
                 List(selection: $selection) {
                     ForEach(torrents, id: \.self) { (item) in
-                        Text("\(item.name ?? item.title ?? "Unknown")")
+                        HStack {
+                            Text("\(item.name ?? item.title ?? "Unknown")")
+                                .font(.title2)
+                            Spacer()
+                            Button(action: {presentCache = true; selectHash = item.hash ?? ""}) {
+                                Image(systemName: "info.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color.green)
+                            }
+                            Button(action: {}) {
+                                Image(systemName: "exclamationmark.arrow.triangle.2.circlepath")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color.blue)
+                            }
+                            Button(action: {}) {
+                                Image(systemName: "xmark.circle")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color.red)
+                            }
+                        }
                     }
                 }
             }
         }
+        .sheet(isPresented: $presentCache) {
+            CacheView(hash: $selectHash)
+        }
         .onAppear() {
+            loading = true
+            timesCount += 1
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-                loading = true
-                timesCount += 1
                 ServerNetworkManager().list { (torrentList, error) in
                     if error == nil {
                         self.torrents = torrentList ?? []

@@ -86,13 +86,41 @@ struct ServerNetworkManager {
                 let result = response.handleNetworkResponse()
                 switch result {
                 case .success:
-                    guard let responseData = data else {
+                    guard data != nil else {
                         completion(false, NetworkResponse.noData.rawValue)
                         return
                     }
                     completion(true, nil)
                 case .failure(let networkFailureError):
                     completion(false, networkFailureError)
+                }
+            }
+        }
+    }
+    
+    func cache(hash: String, completion: @escaping (_ cache: CacheModel?,_ error: String?)->()){
+        serverequestmanager.request(.cache(hash: hash)) { data, response, error in
+            
+            if error != nil {
+                completion(nil, "Check server \(String(describing: error))")
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                let result = response.handleNetworkResponse()
+                switch result {
+                case .success:
+                    guard let responseData = data else {
+                        completion(nil, NetworkResponse.noData.rawValue)
+                        return
+                    }
+                    do {
+                        let apiResp = try JSONDecoder().decode(CacheModel.self, from: responseData)
+                        completion(apiResp, nil)
+                    } catch {
+                        completion(nil, error.localizedDescription)
+                    }
+                case .failure(let networkFailureError):
+                    completion(nil, networkFailureError)
                 }
             }
         }
@@ -116,6 +144,34 @@ struct ServerNetworkManager {
                     do {
                         let responseDecode = try JSONDecoder().decode([ReleaseElement].self, from: responseData)
                         completion(responseDecode.first, nil)
+                    } catch {
+                        print(error)
+                        completion(nil, NetworkResponse.unableToDecode.rawValue)
+                    }
+                case .failure(let networkFailureError):
+                    completion(nil, networkFailureError)
+                }
+            }
+        }
+    }
+    func getReleases(completion: @escaping (_ vesion: [ReleaseElement]?,_ error: String?)->()) {
+        gitrequestmanager.request(.releases) { data, response, error in
+            
+            if error != nil {
+                completion(nil, "Please check your network connection")
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                let result = response.handleNetworkResponse()
+                switch result {
+                case .success:
+                    guard let responseData = data else {
+                        completion(nil, NetworkResponse.noData.rawValue)
+                        return
+                    }
+                    do {
+                        let responseDecode = try JSONDecoder().decode([ReleaseElement].self, from: responseData)
+                        completion(responseDecode, nil)
                     } catch {
                         print(error)
                         completion(nil, NetworkResponse.unableToDecode.rawValue)

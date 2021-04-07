@@ -19,6 +19,8 @@ class AppState: ObservableObject {
     
     @Published var showDownloadLatest: Bool = false
     @Published var deleteView: Bool = false
+    @Published var needDownloadView: Bool = false
+    @Published var cacheView: Bool = false
     
     @Published var serverProcess: Process? = nil
 }

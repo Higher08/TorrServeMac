@@ -57,7 +57,9 @@ struct ServerInfoView: View {
                 Text(appState.version.contains("atri") ? "Успешно подключено" : appState.version.isEmpty ? "Сервер не подключен" : "Версия не поддерживается" ).font(.title)
             }
             
-            Button(action: {appState.showDownloadLatest = true}) {
+            Button(action: {
+                    Shell.shared.kill()
+                    appState.showDownloadLatest = true}) {
                 Text("Установить последний локальный сервер")
             }
             .sheet(isPresented: $appState.showDownloadLatest) {
@@ -65,10 +67,12 @@ struct ServerInfoView: View {
             }
             
             Button(action: {
-                print(appState.serverProcess)
-                kill()
-            }) {
+                    Shell.shared.kill()
+                    appState.needDownloadView = true}, label: {
                 Text("Установить нужную версию")
+            })
+            .sheet(isPresented: $appState.needDownloadView) {
+                NeedDownloadView()
             }
             Button(action: {
                 Shell.shared.kill()
@@ -81,24 +85,6 @@ struct ServerInfoView: View {
             }
         }
         .padding()
-    }
-    func kill() {
-        let kill = Process()
-        kill.launchPath = "/bin/sh"
-        kill.arguments = ["scriptCopy.sh", String(ProcessInfo.processInfo.processIdentifier)]
-        kill.currentDirectoryPath = Bundle.main.resourcePath!
-        print(kill.arguments)
-        let quarantinePipe = Pipe()
-        kill.standardOutput = quarantinePipe
-        kill.standardError = quarantinePipe
-        kill.launch()
-        let quarantineData = quarantinePipe.fileHandleForReading.readDataToEndOfFile()
-        let quarantineOutput: String = NSString(data: quarantineData, encoding: String.Encoding.utf8.rawValue)! as String
-        if !quarantineOutput.isEmpty {
-//            error.append(quarantineOutput)
-            print(quarantineOutput)
-            return
-        }
     }
 }
 
