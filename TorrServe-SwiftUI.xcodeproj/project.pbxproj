@@ -31,6 +31,7 @@
 		668415DA261AF35E00E6A74B /* OnView+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668415D9261AF35E00E6A74B /* OnView+View.swift */; };
 		6688DBC025FCC7AD008451FF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6688DBBF25FCC7AD008451FF /* Alamofire */; };
 		669C177725FD0E4A00EE3CC3 /* Torrent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669C177625FD0E4A00EE3CC3 /* Torrent.swift */; };
+		669D1F0F261E2A2B00FA8C7E /* BTsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669D1F0E261E2A2B00FA8C7E /* BTsets.swift */; };
 		66CFBA99261CF53300C6B368 /* close.sh in Resources */ = {isa = PBXBuildFile; fileRef = 66CFBA98261CF53200C6B368 /* close.sh */; };
 		66D536DD2619FE3F009CFBD4 /* ReleaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D536DC2619FE3F009CFBD4 /* ReleaseModel.swift */; };
 		66D536E3261A183D009CFBD4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D536E2261A183D009CFBD4 /* AppState.swift */; };
@@ -71,6 +72,7 @@
 		668415D5261ADD8A00E6A74B /* DeleteServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteServer.swift; sourceTree = "<group>"; };
 		668415D9261AF35E00E6A74B /* OnView+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnView+View.swift"; sourceTree = "<group>"; };
 		669C177625FD0E4A00EE3CC3 /* Torrent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Torrent.swift; sourceTree = "<group>"; };
+		669D1F0E261E2A2B00FA8C7E /* BTsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTsets.swift; sourceTree = "<group>"; };
 		66CFBA98261CF53200C6B368 /* close.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = close.sh; sourceTree = "<group>"; };
 		66D536DC2619FE3F009CFBD4 /* ReleaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseModel.swift; sourceTree = "<group>"; };
 		66D536E2261A183D009CFBD4 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				662E7CCC2619E810006C58FD /* HTTPProxy.swift */,
 				662E7CCB2619E810006C58FD /* ServerNetworkManager.swift */,
 				662E7CD42619E810006C58FD /* ServerEndPoint.swift */,
+				669D1F0E261E2A2B00FA8C7E /* BTsets.swift */,
 				662E7CD72619E810006C58FD /* Service */,
 			);
 			path = Networking;
@@ -295,6 +298,7 @@
 				66FA2E4C2618E8DA004478D3 /* SidebarView.swift in Sources */,
 				664D48CB25FBE3A8009244A1 /* TorrServe_SwiftUIApp.swift in Sources */,
 				662E7CFE2619E810006C58FD /* EndPointType.swift in Sources */,
+				669D1F0F261E2A2B00FA8C7E /* BTsets.swift in Sources */,
 				662E7CE92619E810006C58FD /* URLParameterEncoding.swift in Sources */,
 				662E7CFB2619E810006C58FD /* HTTPMethod.swift in Sources */,
 				662E7CEA2619E810006C58FD /* JSONParameterEncoder.swift in Sources */,

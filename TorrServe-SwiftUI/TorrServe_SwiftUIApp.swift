@@ -23,6 +23,24 @@ struct TorrServe_SwiftUIApp: App {
                             Shell.shared.kill()
                         }
                     }
+                    let appIdentifier = "group.com.torrServe.Mac"
+                    let fileManager = FileManager.default
+                    let container = fileManager.containerURL(forSecurityApplicationGroupIdentifier: appIdentifier)
+                    do {
+                        let fileURLs = try fileManager.contentsOfDirectory(at: container!, includingPropertiesForKeys: nil)
+                        let url = fileURLs.first(where: {$0.absoluteString.contains("tserverjob")})
+                        let server = Process()
+                        server.currentDirectoryPath = Bundle.main.resourcePath ?? "/User/Downloads"
+                        server.executableURL = url
+                        do {
+                            try server.run()
+                        } catch {
+                            print(error)
+                            return
+                        }
+                    } catch {
+                        print("Error while enumerating files \(container!.path): \(error.localizedDescription)")
+                    }
                 }
         }
     }

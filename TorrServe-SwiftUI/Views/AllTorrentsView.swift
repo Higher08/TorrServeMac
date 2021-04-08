@@ -41,13 +41,17 @@ struct AllTorrentsView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(Color.green)
                             }
-                            Button(action: {}) {
+                            Button(action: {ServerNetworkManager().drop(hash: item.hash!) { (error) in
+                                print(error)
+                            }}) {
                                 Image(systemName: "exclamationmark.arrow.triangle.2.circlepath")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(Color.blue)
                             }
-                            Button(action: {}) {
+                            Button(action: {ServerNetworkManager().remove(hash: item.hash!) { (error) in
+                                print(error)
+                            }}) {
                                 Image(systemName: "xmark.circle")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)

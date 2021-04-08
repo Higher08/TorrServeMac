@@ -7,6 +7,11 @@ public enum ServerApi {
     case list
     case addTorrent(magnet: String, title: String, poster: String)
     case cache(hash: String)
+    case drop(hash: String)
+    case remove(hash: String)
+    case setSettings(sets: String)
+    case defSettings
+    case getSettings
 }
 
 extension ServerApi: EndPointType {
@@ -30,9 +35,19 @@ extension ServerApi: EndPointType {
         case .list:
             return "torrents"
         case .addTorrent:
-            return "stream"
+            return "torrents"
         case .cache:
             return "cache"
+        case .remove:
+            return "torrents"
+        case .drop:
+            return "torrents"
+        case .setSettings:
+            return "settings"
+        case .defSettings:
+            return "settings"
+        case .getSettings:
+            return "settings"
         }
     }
     var httpMethod: HTTPMethod {
@@ -41,7 +56,17 @@ extension ServerApi: EndPointType {
             return .post
         case .addTorrent:
             return .post
+        case .remove:
+            return .post
         case .cache:
+            return .post
+        case .drop:
+            return .post
+        case .setSettings:
+            return .post
+        case .defSettings:
+            return .post
+        case .getSettings:
             return .post
         default:
             return .get
@@ -56,7 +81,7 @@ extension ServerApi: EndPointType {
                                               urlParameters: nil)
         case .addTorrent(let magnet, let title, let poster): return .requestParameters(
             bodyParameters: ["action": "add",
-                             "save_to_db": "true",
+                             "save_to_db": true,
                              "link": magnet,
                              "title": title,
                              "poster": poster],
@@ -66,6 +91,19 @@ extension ServerApi: EndPointType {
                                                                           "hash": hash],
                                                          bodyEncoding: .jsonEncoding,
                                                          urlParameters: nil)
+        case .remove(let hash): return .requestParameters(bodyParameters: ["action": "rem",
+                                                                           "hash": hash], bodyEncoding: .jsonEncoding, urlParameters: nil)
+        case .drop(let hash): return .requestParameters(bodyParameters: ["action": "drop",
+                                                                           "hash": hash], bodyEncoding: .jsonEncoding, urlParameters: nil)
+        case .setSettings(let sets):
+            return .requestParameters(bodyParameters: ["action": "set",
+                                                       "sets": sets],
+                                      bodyEncoding: .jsonEncoding,
+                                      urlParameters: nil)
+        case .defSettings:
+            return .requestParameters(bodyParameters: ["action": "def"], bodyEncoding: .jsonEncoding, urlParameters: nil)
+        case .getSettings:
+            return .requestParameters(bodyParameters: ["action": "get"], bodyEncoding: .jsonEncoding, urlParameters: nil)
         }
     }
     

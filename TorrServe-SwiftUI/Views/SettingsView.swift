@@ -8,88 +8,120 @@
 import SwiftUI
 import Alamofire
 
+struct User {
+    var firstName = "Bilbo"
+    var lastName = "Baggins"
+}
+
 struct SettingsView: View {
+    
+    @State var settings: BTSets = BTSets()
+    @State var retrackers: Int = 0
+    @State private var user = User()
+    
     var body: some View {
         ScrollView {
             Form {
                 Group {
                     Text("Размер кеша").font(.callout)
-                    TextField("Размер кеша", text: .constant("96"))
+                    IntField(text: "Размер кеша", int: $settings.CacheSize)
                         .frame(width: 250)
                     
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.PreloadBuffer, label: {
                         Text("Буфер предзагрузки")
                     }).padding(.vertical)
                     
                     Text("Reader readahead").font(.callout)
-                    TextField("Reader readahead", text: .constant("96"))
+                    IntField(text: "Reader readahead", int: $settings.ReaderReadAHead)
                         .frame(width: 250)
                         .padding(.bottom)
                     Text("Режим ретрекеров").font(.callout)
-                    Picker(selection: .constant(1), label: EmptyView()) {
-                        Text("Не добавлять").tag(1)
-                        Text("Добавлять").tag(2)
-                        Text("Удалять").tag(3)
-                        Text("Заменять").tag(2)
+                    Picker(selection: $retrackers, label: EmptyView()) {
+                        Text("Не добавлять").tag(0)
+                        Text("Добавлять").tag(1)
+                        Text("Удалять").tag(2)
+                        Text("Заменять").tag(3)
                     }.frame(width: 200)
                     .padding(.bottom)
                     Text("Время отключение торрентов").font(.callout)
-                    TextField("Время отключение торрентов", text: .constant("96"))
+                    IntField(text: "Время отключение торрентов", int: $settings.TorrentDisconnectTimeout)
                         .frame(width: 250)
                         .padding(.bottom)
                 }
                 Group {
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.EnableIPv6, label: {
                         Text("Включить IPv6")
                     })
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.ForceEncrypt, label: {
                         Text("Принудительно шифровать")
                     })
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.DisableTCP, label: {
                         Text("Отключить TCP")
                     })
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.DisableUTP, label: {
                         Text("Отключить UTP")
                     })
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.DisableUPNP, label: {
                         Text("Отключить UPNP")
                     })
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.DisableDHT, label: {
                         Text("Отключить DHT")
                     })
-                    Toggle(isOn: .constant(true), label: {
+                    Toggle(isOn: $settings.DisablePEX, label: {
                         Text("Отключить PEX")
                     })
                 }
                 Group {
                     Text("Ограничение скорости скачивания").font(.callout)
                         .padding(.top)
-                    TextField("Ограничение скорости скачивания", text: .constant("96"))
+                    IntField(text: "Ограничение скорости скачивания", int: $settings.DownloadRateLimit)
                         .frame(width: 250)
                         .padding(.bottom)
                     Text("Ограничение скорости загрузки").font(.callout)
-                    TextField("Ограничение скорости загрузки", text: .constant("96"))
+                    IntField(text: "Ограничение скорости загрузки", int: $settings.UploadRateLimit)
                         .frame(width: 250)
                         .padding(.bottom)
                     Text("Лимит подключений").font(.callout)
-                    TextField("Лимит подключений", text: .constant("96"))
+                    IntField(text: "Лимит подключений", int: $settings.ConnectionsLimit)
                         .frame(width: 250)
                         .padding(.bottom)
                     Text("Лимит DHT подключений").font(.callout)
-                    TextField("Лимит DHT подключений", text: .constant("96"))
+                    IntField(text: "Лимит DHT подключений", int: $settings.DhtConnectionLimit)
                         .frame(width: 250)
                         .padding(.bottom)
                     Text("Peers listen port").font(.callout)
-                    TextField("Peers listen port", text: .constant("96"))
+                    IntField(text: "Peers listen port", int: $settings.PeersListenPort)
                         .frame(width: 250)
                         .padding(.bottom)
                 }
-                Button(action: {}, label: {
+                Button(action: {
+                        ServerNetworkManager().setSettings(settings: settings) { (error) in
+                            print(error)
+                }
+                }) {
                     Text("Сохранить")
-                })
-                Button(action: {}, label: {
+                }
+                Button(action: {
+                    ServerNetworkManager().defSettings { (error) in
+                        if error == nil {
+                            ServerNetworkManager().getSettings { (newSettings, error) in
+                                if error == nil {
+                                    self.settings = newSettings ?? BTSets()
+                                }
+                            }
+                        }
+                    }
+                }, label: {
                     Text("Сбросить к настройкам по умолчанию")
                 })
+            }
+        }
+        .onAppear() {
+            ServerNetworkManager().getSettings { (settings, error) in
+                if error == nil {
+                    print("succes")
+                    self.settings = settings ?? BTSets()
+                }
             }
         }
     }
@@ -98,5 +130,34 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+    }
+}
+
+func ??<T>(binding: Binding<T?>, fallback: T) -> Binding<T> {
+    return Binding(get: {
+        binding.wrappedValue ?? fallback
+    }, set: {
+        binding.wrappedValue = $0
+    })
+}
+
+struct IntField: View {
+    @State var text: String
+    @Binding var int: Int
+    @State private var intString: String  = ""
+    var body: some View {
+        return TextField(text, text: $intString)
+            .onChange(of: intString) { value in
+                if let i = Int(value) { int = i }
+                else { intString = "\(int)" }
+            }
+            .onChange(of: int) { (value) in
+                if String(value) != intString {
+                    intString = String(value)
+                }
+            }
+            .onAppear(perform: {
+                intString = "\(int)"
+            })
     }
 }
