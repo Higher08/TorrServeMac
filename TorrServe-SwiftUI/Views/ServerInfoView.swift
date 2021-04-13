@@ -58,13 +58,13 @@ struct ServerInfoView: View {
             }
             
             Button(action: {
-                    Shell.shared.kill()
-                    appState.showDownloadLatest = true}) {
-                Text("Установить последний локальный сервер")
-            }
-            .sheet(isPresented: $appState.showDownloadLatest) {
-                DownloadLatestView()
-            }
+                               Shell.shared.kill()
+                               appState.showDownloadLatest = true}) {
+                           Text("Установить последний локальный сервер")
+                       }
+                       .sheet(isPresented: $appState.showDownloadLatest) {
+                           DownloadLatestView()
+                       }
             
             Button(action: {
                     Shell.shared.kill()

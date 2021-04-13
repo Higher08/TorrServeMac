@@ -66,12 +66,11 @@ struct DownloadLatestView: View {
                 download()
             }
             if succesDownload == true || !error.isEmpty {
-                Button(action: {DispatchQueue.main.async {
-                    presentationMode.wrappedValue.dismiss()
-                }
-                }) {
-                    Text("Закрыть")
-                }
+                Button("Закрыть") {
+                    withAnimation {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }.keyboardShortcut(.defaultAction)
             }
         }
         .frame(width: 300, height: 300)

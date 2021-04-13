@@ -7,6 +7,14 @@
 
 import SwiftUI
 import Alamofire
+import UniformTypeIdentifiers
+
+extension UTType {
+    //Word documents are not an existing property on UTType
+    static var word: UTType {
+        UTType.types(tag: "torrent", tagClass: .filenameExtension, conformingTo: nil).first!
+    }
+}
 
 struct AddTorrentView: View {
     
@@ -15,10 +23,55 @@ struct AddTorrentView: View {
     @State var poster: String = ""
     @State var error: String?
     @State var succes: Bool = false
+    @State var selectFile: Bool = false
     
     var body: some View {
-        Button(action: {upload()}) {
+        Button(action: {
+            withAnimation {
+                selectFile = true}
+            
+        }) {
             Text("Выберите файл")
+        }
+        // Импорт файлов в MacOS 11.0
+        .fileImporter(isPresented: $selectFile, allowedContentTypes: [.word]) { (result) in
+            do {
+                let file = try result.get()
+                print(file)
+                let data = try! Data(contentsOf: file)
+                let mime = returnMime(fileExtension: "torrent")
+                let ip = UserDefaults.standard.string(forKey: "serverIP")
+                let port = UserDefaults.standard.string(forKey: "serverPort")
+                AF.upload(multipartFormData: { (form) in
+                    form.append(Data("true".utf8), withName: "save")
+                    form.append(data, withName: "file0", fileName: "raya)", mimeType: mime)
+                }, to: "http://\(ip ?? "127.0.0.1"):\(port ?? "8090")/torrent/upload")
+                .uploadProgress(closure: { (progress) in
+                    print(progress.fractionCompleted*100)
+                })
+                .response { response in
+                    switch response.result {
+                    case .success:
+                        self.succes = true
+                        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (_) in
+                            self.succes = false
+                        }
+                    case let .failure(error):
+                        self.error = error.errorDescription
+                        Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (_) in
+                            self.error = nil
+                        }
+                    }
+                    self.error = response.error?.localizedDescription
+                    print(response.result)
+                    print(response.response?.description as Any)
+                }
+            } catch {
+                print(error)
+            }
+//            if result. == nil {
+//               print
+//            }
         }
         Text("Или введите")
         HStack {
@@ -82,48 +135,22 @@ struct AddTorrentView: View {
         }
     }
     
-    func upload() {
-        let panel = NSOpenPanel()
-        panel.nameFieldLabel = "Выберите файл"
-        panel.canCreateDirectories = true
-        panel.allowedFileTypes = ["torrent"]
-        DispatchQueue.main.async {
-            
-            panel.beginSheetModal(for: NSApp.mainWindow ?? NSWindow()) { response in
-                if response == NSApplication.ModalResponse.OK, let fileUrl = panel.url {
-                    print(fileUrl)
-                    let data = try! Data(contentsOf: fileUrl)
-                    let mime = returnMime(fileExtension: "torrent")
-                    let ip = UserDefaults.standard.string(forKey: "serverIP")
-                    let port = UserDefaults.standard.string(forKey: "serverPort")
-                    AF.upload(multipartFormData: { (form) in
-                        form.append(Data("true".utf8), withName: "save")
-                        form.append(data, withName: "file0", fileName: "raya)", mimeType: mime)
-                    }, to: "http://\(ip ?? "127.0.0.1"):\(port ?? "8090")/torrent/upload")
-                    .uploadProgress(closure: { (progress) in
-                        print(progress.fractionCompleted*100)
-                    })
-                    .response { response in
-                        switch response.result {
-                        case .success:
-                            self.succes = true
-                            Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (_) in
-                                self.succes = false
-                            }
-                        case let .failure(error):
-                            self.error = error.errorDescription
-                            Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (_) in
-                                self.error = nil
-                            }
-                        }
-                        self.error = response.error?.localizedDescription
-                        print(response.result)
-                        print(response.response?.description as Any)
-                    }
-                }
-            }
-        }
-    }
+//    func upload() {
+//        let panel = NSOpenPanel()
+//        panel.nameFieldLabel = "Выберите файл"
+//        panel.canCreateDirectories = true
+//        panel.allowedFileTypes = ["torrent"]
+//        DispatchQueue.main.async {
+//
+//            panel.beginSheetModal(for: NSApp.mainWindow ?? NSWindow()) { response in
+//                if response == NSApplication.ModalResponse.OK, let fileUrl = panel.url {
+//                    print(fileUrl)
+//
+//                }
+//            }
+//        }
+//    }
+    
     func returnMime(fileExtension: String) -> String {
         if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension as NSString, nil)?.takeRetainedValue() {
             if let mimeType = UTTypeCreatePreferredIdentifierForTag(uti, kUTTagClassMIMEType, nil)?.takeRetainedValue() {

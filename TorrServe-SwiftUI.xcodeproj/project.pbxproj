@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		661CF85125FE94FD00498052 /* raya.torrent in Resources */ = {isa = PBXBuildFile; fileRef = 661CF85025FE94FD00498052 /* raya.torrent */; };
 		662E7CE82619E810006C58FD /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E7CC52619E810006C58FD /* ParameterEncoding.swift */; };
 		662E7CE92619E810006C58FD /* URLParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E7CC62619E810006C58FD /* URLParameterEncoding.swift */; };
 		662E7CEA2619E810006C58FD /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662E7CC72619E810006C58FD /* JSONParameterEncoder.swift */; };
@@ -48,7 +47,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		661CF85025FE94FD00498052 /* raya.torrent */ = {isa = PBXFileReference; lastKnownFileType = file; path = raya.torrent; sourceTree = "<group>"; };
 		662E7CC52619E810006C58FD /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		662E7CC62619E810006C58FD /* URLParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParameterEncoding.swift; sourceTree = "<group>"; };
 		662E7CC72619E810006C58FD /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				66CFBA98261CF53200C6B368 /* close.sh */,
 				664661432618CFD600D95321 /* script.sh */,
 				664D48CE25FBE3AB009244A1 /* Assets.xcassets */,
-				661CF85025FE94FD00498052 /* raya.torrent */,
 				664D48D325FBE3AB009244A1 /* Info.plist */,
 				664D48D425FBE3AB009244A1 /* TorrServe_SwiftUI.entitlements */,
 				664D48D025FBE3AB009244A1 /* Preview Content */,
@@ -269,7 +266,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				661CF85125FE94FD00498052 /* raya.torrent in Resources */,
 				664D48D225FBE3AB009244A1 /* Preview Assets.xcassets in Resources */,
 				664D48CF25FBE3AB009244A1 /* Assets.xcassets in Resources */,
 				664661442618CFD600D95321 /* script.sh in Resources */,

@@ -104,7 +104,6 @@ struct SidebarView: View {
                     }
                 }
             }
-            .navigationTitle("TorrServe")
         }
     }
     func toggleSidebar() {
