@@ -16,6 +16,13 @@ extension UTType {
     }
 }
 
+extension UTType {
+    //Word documents are not an existing property on UTType
+    static var macho: UTType {
+        UTType.types(tag: "application/x-mach-binary", tagClass: .mimeType, conformingTo: nil).first!
+    }
+}
+
 struct AddTorrentView: View {
     
     @State var magnet: String = ""

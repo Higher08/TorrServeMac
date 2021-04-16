@@ -137,12 +137,12 @@ struct ServerNetworkManager {
                 switch result {
                 case .success:
                     guard data != nil else {
-                        completion(NetworkResponse.noData.rawValue)
+                        completion(error?.localizedDescription)
                         return
                     }
                     completion(nil)
                 case .failure(let networkFailureError):
-                    completion(networkFailureError)
+                    completion(error?.localizedDescription)
                 }
             }
         }
@@ -159,12 +159,12 @@ struct ServerNetworkManager {
                 switch result {
                 case .success:
                     guard data != nil else {
-                        completion(NetworkResponse.noData.rawValue)
+                        completion(error?.localizedDescription)
                         return
                     }
                     completion(nil)
-                case .failure(let networkFailureError):
-                    completion(networkFailureError)
+                case .failure:
+                    completion(error?.localizedDescription)
                 }
             }
         }
@@ -201,7 +201,7 @@ struct ServerNetworkManager {
         gitrequestmanager.request(.releases) { data, response, error in
             
             if error != nil {
-                completion(nil, "Please check your network connection")
+                completion(nil, error.debugDescription)
             }
             
             if let response = response as? HTTPURLResponse {
@@ -291,7 +291,7 @@ struct ServerNetworkManager {
         gitrequestmanager.request(.releases) { data, response, error in
             
             if error != nil {
-                completion(nil, "Please check your network connection")
+                completion(nil, error.debugDescription)
             }
             
             if let response = response as? HTTPURLResponse {
@@ -299,7 +299,7 @@ struct ServerNetworkManager {
                 switch result {
                 case .success:
                     guard let responseData = data else {
-                        completion(nil, NetworkResponse.noData.rawValue)
+                        completion(nil, error?.localizedDescription)
                         return
                     }
                     do {
@@ -307,10 +307,10 @@ struct ServerNetworkManager {
                         completion(responseDecode, nil)
                     } catch {
                         print(error)
-                        completion(nil, NetworkResponse.unableToDecode.rawValue)
+                        completion(nil,error.localizedDescription)
                     }
                 case .failure(let networkFailureError):
-                    completion(nil, networkFailureError)
+                    completion(nil, error?.localizedDescription)
                 }
             }
         }

@@ -78,6 +78,15 @@ struct ServerInfoView: View {
                 Shell.shared.kill()
                 appState.deleteView = true
             }) {
+                Text("Установить с файла")
+            }
+            .sheet(isPresented: $appState.deleteView) {
+                FileInstallView()
+            }
+            Button(action: {
+                Shell.shared.kill()
+                appState.deleteView = true
+            }) {
                 Text("Удалить локальный сервер")
             }
             .sheet(isPresented: $appState.deleteView) {

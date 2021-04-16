@@ -27,8 +27,11 @@ struct NeedDownloadView: View {
     var body: some View {
         if downloadVersion.isEmpty {
             VStack {
-                TextField("Поисе", text: $search)
+                TextField("Поиск", text: $search)
                     .padding()
+                if !error.isEmpty {
+                    Text(error)
+                }
                 List {
                     ForEach(releases.filter({ $0.tagName!.contains("Matri") && $0.tagName!.contains(search.isEmpty ? "M" : search) }), id: \.self) { release in
                         HStack  {
@@ -101,14 +104,18 @@ struct NeedDownloadView: View {
         }
     }
     func version() {
-        ServerNetworkManager().getReleases { (releases, error) in
-            self.releases = releases!
+        ServerNetworkManager().getReleases { (releases, downloaderror) in
+            if downloaderror == nil {
+                self.releases = releases!
+            } else {
+                self.error = downloaderror!
+            }
         }
     }
     func download(_ assets: [Asset]) {
         let arch = ProcessInfo().machineHardwareName
         let asset = assets.first(where: {$0.name == "TorrServer-darwin-\(arch == "arm64" ? "arm64" : "amd64")"})?.browserDownloadURL
-        let url = URL(string: asset ?? "https://github.com/YouROK/TorrServer/releases/download/MatriX.85/TorrServer-darwin-amd64")!
+        let url = URL(string: asset ?? "")!
         let destination: DownloadRequest.Destination = { _, _ in
             let appIdentifier = "group.com.torrServe.Mac"
             let fileManager = FileManager.default

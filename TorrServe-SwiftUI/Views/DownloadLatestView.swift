@@ -163,6 +163,9 @@ struct DownloadLatestView: View {
                             return
                         }
                     }
+            } else {
+                error.append(errorRelease ?? "")
+                succesDownload = false
             }
         }
     }

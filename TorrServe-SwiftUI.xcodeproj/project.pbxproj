@@ -35,6 +35,7 @@
 		66D536DD2619FE3F009CFBD4 /* ReleaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D536DC2619FE3F009CFBD4 /* ReleaseModel.swift */; };
 		66D536E3261A183D009CFBD4 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D536E2261A183D009CFBD4 /* AppState.swift */; };
 		66D536E6261A1890009CFBD4 /* DownloadLatestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D536E5261A1890009CFBD4 /* DownloadLatestView.swift */; };
+		66DAF72A2629A41200347686 /* FileInstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66DAF7292629A41200347686 /* FileInstallView.swift */; };
 		66FA2E4C2618E8DA004478D3 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA2E4B2618E8DA004478D3 /* SidebarView.swift */; };
 		66FA2E4F2618EAA4004478D3 /* ServerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA2E4E2618EAA4004478D3 /* ServerInfoView.swift */; };
 		66FA2E522618EB2F004478D3 /* AllTorrentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FA2E512618EB2F004478D3 /* AllTorrentsView.swift */; };
@@ -75,6 +76,7 @@
 		66D536DC2619FE3F009CFBD4 /* ReleaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseModel.swift; sourceTree = "<group>"; };
 		66D536E2261A183D009CFBD4 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		66D536E5261A1890009CFBD4 /* DownloadLatestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadLatestView.swift; sourceTree = "<group>"; };
+		66DAF7292629A41200347686 /* FileInstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileInstallView.swift; sourceTree = "<group>"; };
 		66FA2E4B2618E8DA004478D3 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		66FA2E4E2618EAA4004478D3 /* ServerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfoView.swift; sourceTree = "<group>"; };
 		66FA2E512618EB2F004478D3 /* AllTorrentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTorrentsView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				66FA2E562618EBBA004478D3 /* AddTorrentView.swift */,
 				66FE2BCC261DEA0E00C65F66 /* CacheView.swift */,
 				66FA2E4E2618EAA4004478D3 /* ServerInfoView.swift */,
+				66DAF7292629A41200347686 /* FileInstallView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				662E7CFB2619E810006C58FD /* HTTPMethod.swift in Sources */,
 				662E7CEA2619E810006C58FD /* JSONParameterEncoder.swift in Sources */,
 				66FA2E522618EB2F004478D3 /* AllTorrentsView.swift in Sources */,
+				66DAF72A2629A41200347686 /* FileInstallView.swift in Sources */,
 				662E7CED2619E810006C58FD /* ServerNetworkManager.swift in Sources */,
 				662E7CEE2619E810006C58FD /* HTTPProxy.swift in Sources */,
 				662E7CFC2619E810006C58FD /* Router.swift in Sources */,
