@@ -62,9 +62,6 @@ struct DownloadLatestView: View {
                     .clipShape(Rectangle().offset(x: CGFloat(showCheckMark)))
                     .animation(!succesDownload ? Animation.interpolatingSpring(stiffness: 170, damping: 15) : nil)
             }
-            .onAppear() {
-                download()
-            }
             if succesDownload == true || !error.isEmpty {
                 Button("Закрыть") {
                     withAnimation {
@@ -74,6 +71,9 @@ struct DownloadLatestView: View {
             }
         }
         .frame(width: 300, height: 300)
+        .onAppear() {
+                download()
+        }
     }
     func download() {
         ServerNetworkManager().getLatestVersion { (release, errorRelease) in
